@@ -96,7 +96,7 @@ func configureLogging(_ *cobra.Command, _ []string) error {
 }
 
 func init() {
-
+	fmt.Println("!!! yangchun modified the code !!! ")
 	serverArgs = bootstrap.NewPilotArgs(func(p *bootstrap.PilotArgs) {
 		// Set Defaults
 		p.CtrlZOptions = ctrlz.DefaultOptions()

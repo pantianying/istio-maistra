@@ -1,0 +1,6 @@
+# copy from https://catalog.redhat.com/software/containers/openshift-service-mesh/pilot-rhel8/5d2cda3bd70cc57c44cb6b95?container-tabs=dockerfile
+FROM registry.redhat.io/openshift-service-mesh/pilot-rhel8:2.1.1-1
+
+COPY ./pilot-discovery /usr/local/bin/pilot-discovery
+
+ENTRYPOINT [ "/usr/local/bin/pilot-discovery" ]
