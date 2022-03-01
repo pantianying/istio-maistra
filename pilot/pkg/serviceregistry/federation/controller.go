@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"istio.io/istio/pkg/spiffe"
 	"net"
 	"net/http"
 	"reflect"
@@ -324,6 +325,8 @@ func (c *Controller) convertToLocalService(s *federationmodel.ServiceMessage,
 	}
 	// XXX: make this configurable
 	serviceVisibility := visibility.Public
+	appendSas, _ := spiffe.GenSpiffeURI(importedName.Namespace, "default")
+	fmt.Println("yangchun add transient code when merge import svc:", s.Name, "appendSas:", appendSas)
 	return c.createService(createServiceOptions{
 		service:           s,
 		serviceName:       serviceName,
@@ -333,7 +336,7 @@ func (c *Controller) convertToLocalService(s *federationmodel.ServiceMessage,
 		network:           c.localNetwork,
 		serviceVisibility: serviceVisibility,
 		networkGateways:   c.egressGateways,
-		sas:               c.egressSAs,
+		sas:               append(c.egressSAs, appendSas),
 		locality:          c.locality,
 	})
 }
